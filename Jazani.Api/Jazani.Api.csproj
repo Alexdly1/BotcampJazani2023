@@ -4,11 +4,17 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <InvariantGlobalization>true</InvariantGlobalization>
+    <InvariantGlobalization>false</InvariantGlobalization>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Jazani.Application\Jazani.Application.csproj" />
+    <ProjectReference Include="..\Jazani.Domain\Jazani.Domain.csproj" />
+    <ProjectReference Include="..\Jazani.Infrastructure\Jazani.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
