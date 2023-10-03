@@ -14,6 +14,7 @@ namespace Jazani.Application.Admins.Services.Implementations
             _officeRepository = officeRepository;
             _mapper = mapper;
         }
+
         public async Task<IReadOnlyList<OfficeDto>> FindAllAsync()
         {
             IReadOnlyList<Office> offices = await _officeRepository.FindAllAsync();
@@ -27,5 +28,39 @@ namespace Jazani.Application.Admins.Services.Implementations
 
             return _mapper.Map<OfficeDto>(office);
         }
+
+        public async Task<OfficeDto> CreateAsync(OfficeSaveDto officeSaveDto)
+        {
+            Office office = _mapper.Map<Office>(officeSaveDto);
+            office.RegistrationDate = DateTime.Now;
+            office.State = true;
+
+            Office officeSaved = await _officeRepository.SaveAsync(office);
+
+            return _mapper.Map<OfficeDto>(officeSaved);
+        }
+
+        public async Task<OfficeDto> EditAsync(int id, OfficeSaveDto officeSaveDto)
+        {
+            Office office = await _officeRepository.FindByIdAsync(id);
+
+            _mapper.Map<OfficeSaveDto, Office>(officeSaveDto, office);
+
+            Office officeSaved = await _officeRepository.SaveAsync(office);
+
+            return _mapper.Map<OfficeDto>(officeSaved);
+        }
+
+        public async Task<OfficeDto> DisabledAsync(int id)
+        {
+            Office office = await _officeRepository.FindByIdAsync(id);
+
+            office.State = false;
+
+            Office officeSaved = await _officeRepository.SaveAsync(office);
+
+            return _mapper.Map<OfficeDto>(officeSaved);
+        }
+
     }
 }
