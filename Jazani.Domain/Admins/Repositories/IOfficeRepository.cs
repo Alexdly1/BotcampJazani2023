@@ -1,12 +1,10 @@
 ﻿using Jazani.Domain.Admins.Models;
+using Jazani.Domain.Cores.Repositories;
 using System;
 
 namespace Jazani.Domain.Admins.Repositories
 {
-    public interface IOfficeRepository
+    public interface IOfficeRepository : ICrudRepository<Office, int>
     {
-        Task<IReadOnlyList<Office>> FindAllAsync();
-        Task<Office?> FindByIdAsync(int Id);
-        Task<Office> SaveAsync(Office office);
     }
 }

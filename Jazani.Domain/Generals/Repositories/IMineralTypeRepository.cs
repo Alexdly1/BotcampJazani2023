@@ -1,13 +1,10 @@
-﻿using Jazani.Domain.Admins.Models;
+﻿using Jazani.Domain.Cores.Repositories;
 using Jazani.Domain.Generals.Models;
-using System;
 
 namespace Jazani.Domain.Generals.Repositories
 {
-    public interface IMineralTypeRepository
+    public interface IMineralTypeRepository : ICrudRepository<MineralType, int>
     {
-        Task<IReadOnlyList<MineralType>> FindAllAsync();
-        Task<MineralType?> FindByIdAsync(int Id);
-        Task<MineralType> SaveAsync(MineralType mineralType);
+        
     }
 }
