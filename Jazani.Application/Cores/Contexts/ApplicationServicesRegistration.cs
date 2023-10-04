@@ -2,6 +2,8 @@
 using Jazani.Application.Admins.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using Jazani.Application.Generals.Services;
+using Jazani.Application.Generals.Services.Implementations;
 
 namespace Jazani.Application.Cores.Contexts
 {
@@ -12,6 +14,8 @@ namespace Jazani.Application.Cores.Contexts
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.AddTransient<IOfficeService, OfficeService>();
+
+            services.AddTransient<IMineralTypeService, MineralTypeService>();
 
             return services;
         }
