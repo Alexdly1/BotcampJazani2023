@@ -2,7 +2,7 @@
 
 namespace Jazani.Application.Generals.Dtos.MineralTypes.Validators
 {
-    public class MineralTypeValidator :AbstractValidator<MineralTypeSavaDto>
+    public class MineralTypeValidator : AbstractValidator<MineralTypeSavaDto>
     {
         public MineralTypeValidator() 
         {
