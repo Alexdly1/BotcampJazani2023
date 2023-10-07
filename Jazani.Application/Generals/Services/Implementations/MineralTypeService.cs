@@ -32,7 +32,9 @@ namespace Jazani.Application.Generals.Services.Implementations
 
         public async Task<MineralTypeDto> DisabledAsync(int id)
         {
-            MineralType mineralType = await _mineralTypeRepository.FindByIdAsync(id);
+            MineralType? mineralType = await _mineralTypeRepository.FindByIdAsync(id);
+
+            if (mineralType is null) throw MineralTypeNotFound(id);
 
             mineralType.State = false;
 
@@ -43,7 +45,9 @@ namespace Jazani.Application.Generals.Services.Implementations
 
         public async Task<MineralTypeDto> EditAsync(int id, MineralTypeSavaDto savaDto)
         {
-            MineralType mineralType = await _mineralTypeRepository.FindByIdAsync(id);
+            MineralType? mineralType = await _mineralTypeRepository.FindByIdAsync(id);
+
+            if (mineralType is null) throw MineralTypeNotFound(id);
 
             _mapper.Map<MineralTypeSavaDto, MineralType>(savaDto, mineralType);
 
@@ -63,11 +67,15 @@ namespace Jazani.Application.Generals.Services.Implementations
         {
             MineralType? mineralType = await _mineralTypeRepository.FindByIdAsync(id);
 
-            if (mineralType is null) 
-                throw new NotFoundCoreException("Tipo de mineral no encontrado para el id: " + id);
+            if (mineralType is null) throw MineralTypeNotFound(id);
 
             return _mapper.Map<MineralTypeDto>(mineralType);
 
+        }
+
+        private NotFoundCoreException MineralTypeNotFound(int id)
+        {
+            return new NotFoundCoreException("Tipo de mineral no encontrado para el id: " + id);
         }
     }
 }
