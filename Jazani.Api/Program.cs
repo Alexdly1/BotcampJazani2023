@@ -1,6 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Jazani.Api.Filters;
+using Jazani.Api.Middlewares;
 using Jazani.Application.Cores.Contexts;
 using Jazani.Infrastructure.Cores.Contexts;
 
@@ -32,6 +33,9 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
         options.RegisterModule(new ApplicationAutofacModule());
     });
 
+//API
+builder.Services.AddTransient<ExceptionMiddleware>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -40,6 +44,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
