@@ -23,13 +23,9 @@ namespace Jazani.Application.Generals.Services.Implementations
         public async Task<MineralTypeDto> CreateAsync(MineralTypeSavaDto savaDto)
         {
             MineralType mineralType = _mapper.Map<MineralType>(savaDto);
-
             mineralType.RegistrationDate = DateTime.Now;
-
             mineralType.State = true;
-
             await _mineralTypeRepository.SaveAsync(mineralType);
-
             return _mapper.Map<MineralTypeDto>(mineralType);
         }
 
@@ -69,8 +65,6 @@ namespace Jazani.Application.Generals.Services.Implementations
         public async Task<MineralTypeDto?> FindByIdAsync(int id)
         {
             MineralType? mineralType = await _mineralTypeRepository.FindByIdAsync(id);
-
-            //if (mineralType is null) throw MineralTypeNotFound(id);
 
             if (mineralType is null)
             {
